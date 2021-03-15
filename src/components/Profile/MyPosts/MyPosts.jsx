@@ -1,12 +1,11 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import {posts} from "../Profile";
 
 
 const MyPosts = (props) => {
 
-    const postsElements = posts
+    const postsElements = props.posts
         .map(p => <Post message={p.text} likesCount={p.likesCount}/>)
 
   return (
