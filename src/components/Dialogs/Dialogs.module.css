@@ -12,14 +12,22 @@
     color: gold;
 }
 
-
-.dialogItems .dialog {
-  
-}
-
 .messages {
     padding: 10px;
 }
 
-.messages .message {
+.dialogItem a {
+    color: white;
+    text-decoration: none;
 }
+
+.dialogItem a.activeLink {
+    color: gold;
+}
+
+.dialogItem img {
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+}
+
