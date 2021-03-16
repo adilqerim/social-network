@@ -1,13 +1,17 @@
+import rerenderEntireTree from '../render'
+
+
+
 const state = {
     profilePage: {
         posts: [
             {id: 1, text: 'HEY)', likesCount: 5},
             {id: 2, text: 'WHAT TIME IS IT?', likesCount: 6}
-        ]
+        ],
+        newPostText: 'Hello from BLL/state/redux'
     },
-
     dialogsPage: {
-        dialogs : [
+        dialogs: [
             {id: 1, name: 'Mops'},
             {id: 2, name: 'Sveta'},
             {id: 3, name: 'Valya'},
@@ -20,18 +24,51 @@ const state = {
             {id: 3, text: 'How you doing?'},
             {id: 4, text: 'Hey, I am great'},
             {id: 5, text: 'Thank you'}
-        ]
+        ],
+        newMessage: 'hi from state'
     }
 }
 
-export const addPost = (postMessage) => {
+window.state = state
+
+export const addPost = () => {
     const newPost = {
         id: 5,
-        text: postMessage,
+        text: state.profilePage.newPostText,
         likesCount: 10
     }
 
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+    rerenderEntireTree(state)
 }
 
-export default state;
+export const updatePostText = (newPostText) => {
+
+    state.profilePage.newPostText = newPostText
+
+    rerenderEntireTree(state)
+}
+
+export const addMessage = () => {
+    const newMessage = {
+        id: 6,
+        text: state.profilePage.newPostText
+    }
+
+    state.dialogsPage.messages.push(newMessage)
+    state.dialogsPage.newMessage = ''
+    rerenderEntireTree(state)
+}
+
+export const updateMessageText = (newMessageText) => {
+
+    state.dialogsPage.newMessage = newMessageText
+
+    rerenderEntireTree(state)
+}
+
+
+export default state
+
+

@@ -12,6 +12,7 @@ const Dialogs = (props) => {
     const messagesElements = props.dialogsPage.messages
         .map(m => <Message text={m.text}/>)
 
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItems}>
@@ -19,7 +20,9 @@ const Dialogs = (props) => {
             </div>
             <div className={s.messages}>
                 { messagesElements }
-                <Chatting />
+                <Chatting newMessage={props.dialogsPage.newMessage}
+                          updateMessageText={props.updateMessageText}
+                          addMessage={ props.addMessage }/>
             </div>
 
         </div>
