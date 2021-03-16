@@ -12,7 +12,6 @@ const Chatting = (props) => {
     const newMessageChange = () => {
         const text = newMessageElement.current.value;
         props.updateMessageText(text)
-        console.log(text)
     }
 
     return (
@@ -20,7 +19,7 @@ const Chatting = (props) => {
             <div>
                 <textarea ref={ newMessageElement } onChange={ newMessageChange } value={ props.newMessage }/>
             </div>
-            <button onClick={ sendMessage }>Add post</button>
+            <button onClick={ sendMessage }>Add message</button>
         </div>
     )
 }
