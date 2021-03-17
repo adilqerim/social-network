@@ -25,48 +25,67 @@ const store = {
                 newMessage: 'hi from state'
             }
         },
-        getState() {
-            return this._state;
-        },
         _callSubscriber() {
             console.log('state changed')
         },
-        addPost() {
-            const newPost = {
-                id: 5,
-                text: this._state.profilePage.newPostText,
-                likesCount: 10
-            }
 
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber(this)
+        getState() {
+                return this._state;
+            },
+        subscribe(observer) {
+        this._callSubscriber = observer
+    },
+
+        addPost() {
+
         },
         updatePostText(newPostText) {
 
-            this._state.profilePage.newPostText = newPostText
-
-            this._callSubscriber(this)
         },
         addMessage() {
-            const newMessage = {
-                id: 6,
-                text: this._state.dialogsPage.newMessage
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessage = ''
-            this._callSubscriber(this)
+
         },
         updateMessageText(newMessageText) {
 
-            this._state.dialogsPage.newMessage = newMessageText
-
-            this._callSubscriber(this)
         },
-        subscribe(observer) {
-            this._callSubscriber = observer
+
+        dispatch(action) {
+            if (action.type === 'ADD-POST'){
+
+                const newPost = {
+                    id: 5,
+                    text: this._state.profilePage.newPostText,
+                    likesCount: 10
+                }
+
+                this._state.profilePage.posts.push(newPost)
+                this._state.profilePage.newPostText = ''
+                this._callSubscriber(this)
+            }
+            else if (action.type === 'UPDATE-POST-TEXT') {
+
+                this._state.profilePage.newPostText = action.newPostText
+
+                this._callSubscriber(this)
+            }
+            else if (action.type === 'ADD-MESSAGE') {
+                const newMessage = {
+                    id: 6,
+                    text: this._state.dialogsPage.newMessage
+                }
+                this._state.dialogsPage.messages.push(newMessage)
+                this._state.dialogsPage.newMessage = ''
+                this._callSubscriber(this)
+            }
+            else if (action.type === 'UPDATE-MESSAGE-TEXT') {
+
+                this._state.dialogsPage.newMessage = action.newMessage
+
+                this._callSubscriber(this)
+            }
         }
 }
+
 
 export default store
 

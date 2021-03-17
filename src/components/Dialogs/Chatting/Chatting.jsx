@@ -6,12 +6,12 @@ const Chatting = (props) => {
     const newMessageElement = React.createRef();
 
     const sendMessage = () => {
-        props.store.addMessage()
+        props.dispatch({ type: 'ADD-MESSAGE'})
     }
 
     const newMessageChange = () => {
         const text = newMessageElement.current.value;
-        props.store.updateMessageText(text)
+        props.dispatch({ type: 'UPDATE-MESSAGE-TEXT', newMessage: text})
     }
 
     return (
@@ -19,7 +19,7 @@ const Chatting = (props) => {
             <div>
                 <textarea ref={ newMessageElement }
                           onChange={ newMessageChange }
-                          value={ props.store.getState().dialogsPage.newMessage }/>
+                          value={ props.dialogsPage.newMessage }/>
             </div>
             <button onClick={ sendMessage }>Add message</button>
         </div>
