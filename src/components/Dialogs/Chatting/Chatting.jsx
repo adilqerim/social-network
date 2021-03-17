@@ -1,17 +1,19 @@
 import React from "react";
 import s from './Chatting.module.css'
+import {addMessageActionCreator, updateMessageTextActionCreator} from "../../../redux/store";
 
 const Chatting = (props) => {
 
     const newMessageElement = React.createRef();
 
     const sendMessage = () => {
-        props.dispatch({ type: 'ADD-MESSAGE'})
+        props.dispatch( addMessageActionCreator() )
     }
 
     const newMessageChange = () => {
         const text = newMessageElement.current.value;
-        props.dispatch({ type: 'UPDATE-MESSAGE-TEXT', newMessage: text})
+        let action = updateMessageTextActionCreator(text);
+        props.dispatch( action )
     }
 
     return (
