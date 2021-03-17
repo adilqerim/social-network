@@ -7,11 +7,10 @@ import Chatting from "./Chatting/Chatting";
 
 const Dialogs = (props) => {
 
-    const dialogsElements = props.dialogsPage.dialogs
+    const dialogsElements = props.store.getState().dialogsPage.dialogs
         .map(d => <DialogItem id={d.id} name={d.name} />)
-    const messagesElements = props.dialogsPage.messages
+    const messagesElements = props.store.getState().dialogsPage.messages
         .map(m => <Message text={m.text}/>)
-
 
     return (
         <div className={s.dialogs}>
@@ -20,9 +19,7 @@ const Dialogs = (props) => {
             </div>
             <div className={s.messages}>
                 { messagesElements }
-                <Chatting newMessage={props.dialogsPage.newMessage}
-                          updateMessageText={props.updateMessageText}
-                          addMessage={ props.addMessage }/>
+                <Chatting store={props.store}/>
             </div>
 
         </div>
