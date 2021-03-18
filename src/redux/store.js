@@ -1,7 +1,6 @@
-const ADD_POST = 'ADD-POST'
-const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReduce";
+
 
 const store = {
         _state: {
@@ -28,64 +27,26 @@ const store = {
                     {id: 5, text: 'Thank you'}
                 ],
                 newMessage: 'hi from state'
-            }
+            },
+            sidebar: {}
         },
+        getState() {
+        return this._state;
+    },
+
         _callSubscriber() {
             console.log('state changed')
         },
-
-        getState() {
-                return this._state;
-            },
         subscribe(observer) {
-        this._callSubscriber = observer
-    },
+            this._callSubscriber = observer
+        },
 
         dispatch(action) {
-            if (action.type === ADD_POST){
-
-                const newPost = {
-                    id: 5,
-                    text: this._state.profilePage.newPostText,
-                    likesCount: 10
-                }
-
-                this._state.profilePage.posts.push(newPost)
-                this._state.profilePage.newPostText = ''
-                this._callSubscriber(this)
-            }
-            else if (action.type === UPDATE_POST_TEXT) {
-
-                this._state.profilePage.newPostText = action.newPostText
-
-                this._callSubscriber(this)
-            }
-            else if (action.type === ADD_MESSAGE) {
-                const newMessage = {
-                    id: 6,
-                    text: this._state.dialogsPage.newMessage
-                }
-                this._state.dialogsPage.messages.push(newMessage)
-                this._state.dialogsPage.newMessage = ''
-                this._callSubscriber(this)
-            }
-            else if (action.type === UPDATE_MESSAGE_TEXT) {
-
-                this._state.dialogsPage.newMessage = action.newMessage
-
-                this._callSubscriber(this)
-
-            }
+            this._state.profilePage = profileReducer(this._state.profilePage, action)
+            this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+            this._callSubscriber(this) // перерисовка страницы
         }
 }
-
-export const addPostActionCreator = () => ({ type: ADD_POST })
-
-export const newPostChangeActionCreator = text => ({ type: UPDATE_POST_TEXT, newPostText: text })
-
-export const addMessageActionCreator = () => ({ type: ADD_MESSAGE })
-
-export const updateMessageTextActionCreator = text => ({ type: UPDATE_MESSAGE_TEXT, newMessage: text})
 
 export default store
 

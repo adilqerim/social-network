@@ -1,17 +1,14 @@
 import React from "react";
 import s from './Chatting.module.css'
-import {addMessageActionCreator, updateMessageTextActionCreator} from "../../../redux/store";
+import {addMessageActionCreator, updateMessageTextActionCreator} from "../../../redux/dialogsReduce";
 
 const Chatting = (props) => {
-
-    const newMessageElement = React.createRef();
 
     const onSendMessageClick = () => {
         props.dispatch( addMessageActionCreator() )
     }
 
     const onNewMessageChange = (event) => {
-       // const text = newMessageElement.current.value;
         const text = event.target.value;
         let action = updateMessageTextActionCreator(text);
         props.dispatch( action )
@@ -20,8 +17,7 @@ const Chatting = (props) => {
     return (
         <div className={s.chat}>
             <div>
-                <textarea ref={ newMessageElement }
-                          onChange={ onNewMessageChange }
+                <textarea onChange={ onNewMessageChange }
                           value={ props.dialogsPage.newMessage }/>
             </div>
             <button onClick={ onSendMessageClick }>Add message</button>
