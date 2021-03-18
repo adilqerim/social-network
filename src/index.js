@@ -7,11 +7,13 @@ import store from "./redux/reduxStore";
 
 
 const rerenderEntireTree = (store) => {
+
     ReactDOM.render(
         <BrowserRouter>
         <App store={ store } />
         </BrowserRouter>, document.getElementById('root'));
 }
+
 
 rerenderEntireTree(store)
 

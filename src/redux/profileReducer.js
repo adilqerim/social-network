@@ -6,7 +6,7 @@ const initialState = {
         {id: 1, text: 'HEY)', likesCount: 5},
         {id: 2, text: 'WHAT TIME IS IT?', likesCount: 6}
     ],
-        newPostText: 'Hello from BLL/state/redux'
+    newPostText: 'Hello from BLL/state/redux'
 }
 
 const profileReducer = (state = initialState, action) => {
