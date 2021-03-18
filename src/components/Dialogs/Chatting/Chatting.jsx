@@ -6,12 +6,13 @@ const Chatting = (props) => {
 
     const newMessageElement = React.createRef();
 
-    const sendMessage = () => {
+    const onSendMessageClick = () => {
         props.dispatch( addMessageActionCreator() )
     }
 
-    const newMessageChange = () => {
-        const text = newMessageElement.current.value;
+    const onNewMessageChange = (event) => {
+       // const text = newMessageElement.current.value;
+        const text = event.target.value;
         let action = updateMessageTextActionCreator(text);
         props.dispatch( action )
     }
@@ -20,10 +21,10 @@ const Chatting = (props) => {
         <div className={s.chat}>
             <div>
                 <textarea ref={ newMessageElement }
-                          onChange={ newMessageChange }
+                          onChange={ onNewMessageChange }
                           value={ props.dialogsPage.newMessage }/>
             </div>
-            <button onClick={ sendMessage }>Add message</button>
+            <button onClick={ onSendMessageClick }>Add message</button>
         </div>
     )
 }

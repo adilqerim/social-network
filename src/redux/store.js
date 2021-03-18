@@ -78,6 +78,7 @@ const store = {
             }
         }
 }
+
 export const addPostActionCreator = () => ({ type: ADD_POST })
 
 export const newPostChangeActionCreator = text => ({ type: UPDATE_POST_TEXT, newPostText: text })
