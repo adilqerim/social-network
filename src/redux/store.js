@@ -1,5 +1,6 @@
 import profileReducer from "./profileReducer";
 import dialogsReducer from "./dialogsReduce";
+import sidebarReduce from "./sidebarReduce";
 
 
 const store = {
@@ -44,6 +45,7 @@ const store = {
         dispatch(action) {
             this._state.profilePage = profileReducer(this._state.profilePage, action)
             this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+            this._state.sidebar = sidebarReduce(this._state.sidebar, action)
             this._callSubscriber(this) // перерисовка страницы
         }
 }

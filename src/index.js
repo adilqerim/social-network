@@ -3,7 +3,7 @@ import './index.css';
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
-import store from "./redux/store";
+import store from "./redux/reduxStore";
 
 
 const rerenderEntireTree = (store) => {
@@ -13,10 +13,10 @@ const rerenderEntireTree = (store) => {
         </BrowserRouter>, document.getElementById('root'));
 }
 
-
-store.subscribe( rerenderEntireTree )
-
 rerenderEntireTree(store)
+
+store.subscribe(() => rerenderEntireTree(store) )
+
 
 
 
