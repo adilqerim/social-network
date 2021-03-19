@@ -7,7 +7,7 @@ const MyPosts = (props) => {
      const profilePage = props.profilePage
 
      const postsElements = profilePage.posts
-        .map(p => <Post message={p.text} likesCount={p.likesCount}/>)
+        .map(p => <Post message={p.text} key={p.id} likesCount={p.likesCount}/>)
 
     const onAddPost = () => {
         props.addPost()
