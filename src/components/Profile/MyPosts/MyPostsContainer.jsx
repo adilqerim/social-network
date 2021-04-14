@@ -9,12 +9,9 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        addPost: () => {
-            dispatch(addPostActionCreator())
+        addPost: (newPostBody) => {
+            dispatch(addPostActionCreator(newPostBody))
         },
-        updateNewPostText: (text) => {
-            dispatch(newPostChangeActionCreator(text))
-        }
     }
 }
 
