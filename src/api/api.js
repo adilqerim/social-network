@@ -33,32 +33,6 @@ export const usersAPI = {
     }
 }
 
-export const authAPI = {
-    me: () => {
-        return axiosInstance.get('auth/me')
-            .then(response => {
-                return response.data
-            })
-    },
-
-    login: (email, password, rememberMe) => {
-        return axiosInstance.post('auth/login', {
-            email, password, rememberMe
-        })
-            .then(response => {
-                return response.data
-            })
-    },
-
-    logout: () => {
-        return axiosInstance.delete('auth/login')
-            .then(response => {
-                return response.data
-            })
-    },
-
-}
-
 export const profileAPI = {
     getProfile: (profileId) => {
         return axiosInstance.get(`profile/${profileId}`)
@@ -83,3 +57,30 @@ export const profileAPI = {
             })
     },
 }
+
+
+export const authAPI = {
+    me: () => {
+        return axiosInstance.get('auth/me')
+            .then(response => {
+                return response.data
+            })
+    },
+
+    login: (email, password, rememberMe) => {
+        return axiosInstance.post('auth/login', {
+            email, password, rememberMe
+        })
+            .then(response => {
+                return response.data
+            })
+    },
+
+    logout: () => {
+        return axiosInstance.delete('auth/login')
+            .then(response => {
+                return response.data
+            })
+    },
+}
+
