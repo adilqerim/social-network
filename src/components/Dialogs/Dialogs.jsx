@@ -30,10 +30,8 @@ const Dialogs = (props) => {
             </div>
             <div className={s.messages}>
                 { messagesElements }
-                <div>
                 <textarea onChange={ onNewMessageChange }
                           value={ dialogsPage.newMessage }/>
-                </div>
                 <button onClick={ onSendMessageClick }>Send message</button>
             </div>
 
