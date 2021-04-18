@@ -1,5 +1,5 @@
 export const getUsersSelector = (state) => {
-    return state.usersPage.users
+    return state.usersPage.users.filter(u => true)
 }
 export const getPageSize = (state) => {
     return state.usersPage.pageSize
@@ -19,5 +19,11 @@ export const getIsFetching = (state) => {
 
 export const getFollowingInProgress = (state) => {
     return state.usersPage.followingInProgress
+}
+
+export const countSmthDifficult = (state) => {
+    //for.... math.... big arrays. filters
+    const count = 42
+    return count
 }
 
