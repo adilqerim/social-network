@@ -16,7 +16,6 @@ const initialState = {
     currentPage: 1,
     isFetching: false,
     followingInProgress: [],
-    fake: 10
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -43,9 +42,6 @@ const usersReducer = (state = initialState, action) => {
             }
         case SET_USERS: {
             return {...state, users: action.users}
-        }
-        case 'FAKE': {
-            return {...state, fake: state.fake + 1}
         }
         case SET_CURRENT_PAGE:
             return {...state, currentPage: action.currentPage}
@@ -83,7 +79,7 @@ export const getUsers = (currentPage, pageSize) => {
 
         dispatch(toggleIsFetching(false))
         dispatch(setUsers(data.items))
-        //      dispatch(setTotalUsersCount(data.totalCount))
+        // dispatch(setTotalUsersCount(data.totalCount))
         return data
     }
 }

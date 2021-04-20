@@ -64,7 +64,7 @@ export default compose(
             follow,
             unfollow,
             setCurrentPage,
-            getUsers
+            getUsers,
         }),
 )(UsersContainer)
 
