@@ -20,7 +20,7 @@ const profileReducer = (state = initialState, action) => {
             const newPost = {id: 5, text: action.newPostBody, likesCount: 0}
             return {
                 ...state,
-                posts: [...state.posts, newPost ],
+                posts: [...state.posts, newPost],
             }
         case SET_USER_PROFILE:
             return {
@@ -53,20 +53,23 @@ export const getProfile = userId => {
 }
 
 export const getStatus = (userId) => {
-    return (dispatch) => {
-        profileAPI.getStatus(userId).then(data => {
-            dispatch(setStatus(data))
-        })
+    return async (dispatch) => {
+
+        let data = await profileAPI.getStatus(userId)
+
+        dispatch(setStatus(data))
     }
 }
 
 export const updateStatus = status => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
-        })
+    return async (dispatch) => {
+
+        let data = await profileAPI.updateStatus(status)
+
+        if (data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
+
     }
 }
 

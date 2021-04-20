@@ -1,10 +1,10 @@
-import {addPostActionCreator, newPostChangeActionCreator} from "../../../redux/profileReducer";
+import {addPostActionCreator} from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 
 const mapStateToProps = (state) => {
     return {
-        profilePage: state.profilePage
+        posts: state.profilePage.posts
     }
 }
 const mapDispatchToProps = (dispatch) => {
