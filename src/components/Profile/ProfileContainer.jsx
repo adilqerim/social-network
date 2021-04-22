@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {getProfile, getStatus, savePhoto, saveProfile, updateStatus} from "../../redux/profileReducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 const ProfileContainer = (props) => {
 
@@ -53,6 +54,7 @@ export default compose(
             saveProfile
         }),
     withRouter,
+    withAuthRedirect
 )(ProfileContainer)
 
 
