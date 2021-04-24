@@ -30,5 +30,5 @@ export type UserType = {
     name: string
     status: string
     photos: PhotosType
-    followedd: boolean
+    followed: boolean
 }

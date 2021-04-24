@@ -15,14 +15,39 @@ import {
     getPageSize,
     getTotalUsersCount, getUsersReselector,
 } from "../../redux/usersSelectors";
+import {UserType} from "../../redux/Types/Types";
+import {AppStateType} from "../../redux/reduxStore";
 
-class UsersContainer extends React.Component {
+type MapStatePropsType = {
+    currentPage: number
+    pageSize: number
+    isFetching: boolean
+    totalUsersCount: number
+    users: Array<UserType>
+    followingInProgress: Array<number>
+}
+
+type MapDispatchPropsType = {
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+    setCurrentPage: (pageNumber: number) => void
+}
+
+type OwnPropsType = {
+    pageTitle: string
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+
+
+class UsersContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
-    onCurrentPageChanged = (pageNumber) => {
+    onCurrentPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
         this.props.getUsers(pageNumber, this.props.pageSize)
     }
@@ -31,6 +56,7 @@ class UsersContainer extends React.Component {
     render() {
 
         return <>
+            <h2>{this.props.pageTitle}</h2>
             {this.props.isFetching ? <Preloader/> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
@@ -47,7 +73,7 @@ class UsersContainer extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsersReselector(state),
         pageSize: getPageSize(state),
@@ -59,13 +85,14 @@ const mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps,
+
+    //TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState
+    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps,
         {
             follow,
             unfollow,
             setCurrentPage,
-            getUsers,
-        }),
-)(UsersContainer)
+            getUsers }),
+    )(UsersContainer)
 
 
