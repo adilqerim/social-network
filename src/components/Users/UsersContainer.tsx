@@ -15,7 +15,7 @@ import {
     getPageSize,
     getTotalUsersCount, getUsersReselector,
 } from "../../redux/usersSelectors";
-import {UserType} from "../../redux/Types/Types";
+import {UserType} from "../../Types/Types";
 import {AppStateType} from "../../redux/reduxStore";
 
 type MapStatePropsType = {

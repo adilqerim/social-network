@@ -2,10 +2,9 @@ import React, {useState} from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from "../../common/Preloader/Preloader";
 import userPhoto from '../../../assets/images/user.png'
-import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
-import {ProfileDataReduxForm} from "./ProfileData/ProfileDataForm";
+import ProfileStatus from "./ProfileStatus";
+import ProfileDataForm from "./ProfileData/ProfileDataForm";
 import {ProfileData} from "./ProfileData/ProfileData";
-
 
 const ProfileInfo = (props) => {
 
@@ -15,14 +14,14 @@ const ProfileInfo = (props) => {
         return <Preloader/>
     }
 
-    const onMainPhotoSelected = (e) => {
-        if (e.target.files.length) {
-            props.savePhoto(e.target.files[0])
+    const onMainPhotoSelected = (event) => {
+        if (event.target.files.length) {
+            props.savePhoto(event.target.files[0])
         }
     }
 
-    const onSubmit = (data) => {
-        props.saveProfile(data).then(
+    const onSubmit = (profileData) => {
+        props.saveProfile(profileData).then(
             () => {
                 setEditMode(false)
             })
@@ -38,13 +37,13 @@ const ProfileInfo = (props) => {
         </div>
 
         {editMode
-            ? <ProfileDataReduxForm initialValues={props.profile} profile={props.profile} onSubmit={onSubmit}/>
+            ? <ProfileDataForm initialValues={props.profile} profile={props.profile} onSubmit={onSubmit}/>
             : <ProfileData profile={props.profile}
                            isOwner={props.isOwner}
                            goToEditMode={() => setEditMode(true)}/>}
 
         <div>
-            <ProfileStatusWithHooks status={props.status}
+            <ProfileStatus status={props.status}
                                     updateStatus={props.updateStatus}/>
         </div>
     </div>

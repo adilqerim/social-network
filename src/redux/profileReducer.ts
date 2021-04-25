@@ -1,6 +1,6 @@
 import {profileAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
-import {PhotosType, PostType, ProfileType} from "./Types/Types";
+import {PhotosType, PostType, ProfileType} from "../Types/Types";
 
 const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
@@ -54,7 +54,7 @@ type AddPostActionType = {
     newPostBody: string
 }
 
-export const addPostActionCreator = (newPostBody: string): AddPostActionType => ({type: ADD_POST, newPostBody})
+export const addPost = (newPostBody: string): AddPostActionType => ({type: ADD_POST, newPostBody})
 
 type SetUserProfileActionType = {
     type: typeof SET_USER_PROFILE

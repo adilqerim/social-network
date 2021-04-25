@@ -1,5 +1,5 @@
 import {usersAPI} from "../api/api";
-import {UserType} from "./Types/Types";
+import {UserType} from "../Types/Types";
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -20,7 +20,7 @@ const initialState = {
 
 export type InitialStateType = typeof initialState
 
-const usersReducer = (state = initialState, action: any): InitialStateType => {
+const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -62,6 +62,11 @@ const usersReducer = (state = initialState, action: any): InitialStateType => {
             return state;
     }
 }
+
+type ActionsTypes = FollowingSuccessActionType | UnfollowingSuccessActionType |
+    SetUsersActionType | SetCurrentPageActionType | SetTotalUsersCountActionType |
+    ToggleIsFetchingActionType | ToggleFollowingProgressActionType
+
 
 type FollowingSuccessActionType = {
     type: typeof FOLLOW

@@ -1,7 +1,7 @@
 import React from "react";
-import Element from "../../common/FormsControls/FormsControls";
+import Element from "../../../common/FormsControls/FormsControls";
 import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import {maxLengthCreator, required} from "../../../../utils/validators/validators";
 
 const Textarea = Element("textarea");
 

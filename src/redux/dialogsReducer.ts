@@ -1,13 +1,8 @@
+import {DialogType, MessageType} from "../Types/Types";
+
 const ADD_MESSAGE = 'ADD-MESSAGE'
 
-type DialogType = {
-    id: number
-    name: string
-}
-type MessageType = {
-    id: number
-    message: string
-}
+
 
 const initialState = {
     dialogs: [
@@ -44,12 +39,12 @@ const dialogsReducer = (state = initialState, action: any): InitialStateType => 
 
 }
 
-type AddMessageActionCreatorType = {
+type SendMessageActionCreatorType = {
     type: typeof ADD_MESSAGE
     newMessageBody: string
 }
 
-export const addMessageActionCreator = (newMessageBody: string): AddMessageActionCreatorType => ({
+export const sendMessage = (newMessageBody: string): SendMessageActionCreatorType => ({
     type: ADD_MESSAGE,
     newMessageBody,
 })

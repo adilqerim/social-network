@@ -5,7 +5,6 @@ import Element from "../../../common/FormsControls/FormsControls";
 import s from "../ProfileInfo.module.css";
 import styles from "../../../common/FormsControls/FormsControls.module.css";
 
-
 const Input = Element("input");
 const Textarea = Element("textarea");
 const maxLength15 = maxLengthCreator(15)
@@ -25,6 +24,7 @@ const ProfileDataForm = (props) => {
                                 name='fullName'
                                 validate={[required, maxLength15]}/>
         </div>
+
         <div>
             <b>Looking for a job</b>: <Field component={Input}
                                              name='lookingForAJob'
@@ -42,9 +42,12 @@ const ProfileDataForm = (props) => {
                                     name='aboutMe'
                                     validate={[required, maxLength30]}/>
         </div>
+
         <div>
             <b>Contacts</b>: {Object.keys(props.profile.contacts).map(key => {
+
             return <div className={s.contact}>
+
                 <b>{key}</b> <Field key={key}
                                     component={Input}
                                     placeholder={key}
@@ -55,7 +58,7 @@ const ProfileDataForm = (props) => {
     </form>
 }
 
-export const ProfileDataReduxForm = reduxForm(
+export default reduxForm(
     {
         form: 'profileDataForm'
     }
