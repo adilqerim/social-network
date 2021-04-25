@@ -1,3 +1,8 @@
+export type UsersType = {
+    items: Array<UserType>
+    totalCount: number
+    error: string
+}
 export type PostType = {
     id: number
     text: string
