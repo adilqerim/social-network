@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {Component, ComponentElement, ComponentType, FC, ReactNode} from 'react'
 import styles from './FormsControls.module.css'
 
 
-const Element = Element => ({ input, meta, ...props }) => {
+const Element = (Element) => ({ input, meta, ...props }) => {
 
     const hasError = meta.touched && meta.error;
 
@@ -11,8 +11,8 @@ const Element = Element => ({ input, meta, ...props }) => {
             <Element {...input} {...props} />
             { hasError && <span> { meta.error } </span> }
         </div>
-    );
-};
+    )
+}
 
 export default Element
 
