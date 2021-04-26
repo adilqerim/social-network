@@ -1,7 +1,9 @@
-export type UsersType = {
+import {ResultCodesEnum} from "../api/api";
+
+export type GetUsersType = {
     items: Array<UserType>
     totalCount: number
-    error: string
+    error: string | null
 }
 export type PostType = {
     id: number

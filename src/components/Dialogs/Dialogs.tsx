@@ -4,12 +4,11 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {sendMessage} from "../../redux/dialogsReducer";
+import {actions} from "../../redux/dialogsReducer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import AddMessageForm from "./AddMessageForm/AddMessageForm";
 import {AppStateType} from "../../redux/reduxStore";
 import {DialogType, MessageType} from "../../Types/Types";
-import {FormSubmitHandler, SubmitHandler} from "redux-form";
 
 type MapStatePropsType = {
     dialogs: Array<DialogType>
@@ -54,7 +53,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 export default compose(
     connect<MapStatePropsType, MapDispatchPropsType, null, AppStateType>(mapStateToProps,
         {
-            sendMessage
+            sendMessage: actions.sendMessage
         }),
     withAuthRedirect
 )(Dialogs)

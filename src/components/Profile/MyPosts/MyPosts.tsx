@@ -5,7 +5,7 @@ import AddNewPostForm from "./AddNewPostForm/AddNewPostForm";
 import {PostType} from "../../../Types/Types";
 import {AppStateType} from "../../../redux/reduxStore";
 import {connect} from "react-redux";
-import {addPost} from "../../../redux/profileReducer";
+import {actions} from "../../../redux/profileReducer";
 
 
 type MapStatePropsType = {
@@ -41,4 +41,4 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 })
 
 export default connect(mapStateToProps,
-    {addPost})(MyPosts);
+    {addPost: actions.addPost})(MyPosts);
