@@ -3,39 +3,28 @@ import {UserType} from "../Types/Types";
 import {AppStateType, InferActionsTypes} from "./reduxStore";
 import {ThunkAction} from "redux-thunk";
 import {usersAPI} from "../api/users-api";
+import {updateObjectInArray} from "../utils/object-helpers";
 
 const initialState = {
     users: [] as Array<UserType>,
-    pageSize: 100,
+    pageSize: 50,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
     followingInProgress: [] as Array<number>, // array of users ids
 }
 
-
-
 const usersReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'FOLLOW':
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userId) {
-                        return {...u, followed: true}
-                    }
-                    return u;
-                })
+                users: updateObjectInArray(state.users, action.userId, "id", {followed: true})
             }
         case 'UNFOLLOW':
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.userId) {
-                        return {...u, followed: false}
-                    }
-                    return u;
-                })
+                users: updateObjectInArray(state.users, action.userId, "id", {followed: false})
             }
         case 'SET_USERS': {
             return {...state, users: action.users}

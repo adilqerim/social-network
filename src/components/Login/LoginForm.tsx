@@ -1,42 +1,33 @@
 import React, {FC} from 'react'
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {login} from "../../redux/authReducer";
-import Element from "../common/FormsControls/FormsControls";
+import {createField, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import styles from './../common/FormsControls/FormsControls.module.css'
 import {LoginFormValuesType} from "./Login";
 
-const Input = Element("input");
+
 
 type LoginFormOwnPropsType = {
     captchaUrl: string | null
 }
 
+export type LoginFormValuesTypeKeys = Extract<keyof LoginFormValuesType, string>
+
 const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field component={Input} placeholder={'Login'} name={'email'}
-                       validate={[required]}/>
-            </div>
-            <div>
-                <Field component={Input} placeholder={'Password'} name={'password'} type={'password'}
-                       validate={[required]}/>
-            </div>
-            <div>
-                <Field component={Input} type={'checkbox'} name={'rememberMe'}/> Remember me
-            </div>
+
+            {createField<LoginFormValuesTypeKeys>('Enter login', 'email', [required], Input)}
+            {createField<LoginFormValuesTypeKeys>('Enter password', 'password', [required], Input, {type: 'password'})}
+            {createField<LoginFormValuesTypeKeys>(undefined, 'rememberMe', [], Input, {type: 'checkbox'}, 'Remember me')}
 
             {props.captchaUrl && <img src={props.captchaUrl}/>}
-            {props.captchaUrl && <Field component={Input} name={'captcha'}
-                                        validate={[required]}/>}
-
+            {props.captchaUrl && createField<LoginFormValuesTypeKeys>(undefined, 'captcha', [required], Input)}
             {props.error && <div className={styles.formSummaryError}>
                 {props.error}
             </div>}
-            <div>
-                <button>Login</button>
-            </div>
+            <button>Login</button>
         </form>
     )
 }

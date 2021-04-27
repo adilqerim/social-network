@@ -9,14 +9,14 @@ const initialState = {
     email: null as string | null,
     login: null as string | null,
     isAuth: false,
-    captchaUrl: null as string | null
+    captchaUrl: null as string | null // if null, then captcha is not required
 }
 
 const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
     switch (action.type) {
-        case "SET_USER_DATA":
-        case "GET_CAPTCHA_URL_SUCCESS":
+        case 'SN/AUTH/SET_USER_DATA':
+        case 'SN/AUTH/GET_CAPTCHA_URL_SUCCESS':
             return {
                 ...state,
                 ...action.payload,
@@ -28,12 +28,12 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialStateTy
 
 const actions = {
     setAuthUserData: (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
-        type: 'SET_USER_DATA',
+        type: 'SN/AUTH/SET_USER_DATA',
         payload: {id, email, login, isAuth}
     }),
     getCaptchaUrlSuccess: (captchaUrl: string) => {
         return {
-            type: 'GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}
+            type: 'SN/AUTH/GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}
         }
     }
 }

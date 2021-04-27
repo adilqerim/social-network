@@ -41,7 +41,6 @@ const ProfileInfo = (props) => {
             : <ProfileData profile={props.profile}
                            isOwner={props.isOwner}
                            goToEditMode={() => setEditMode(true)}/>}
-
         <div>
             <ProfileStatus status={props.status}
                                     updateStatus={props.updateStatus}/>

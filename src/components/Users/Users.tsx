@@ -1,11 +1,7 @@
 import React from 'react'
-import styles from "./Users.module.css";
-import userPhoto from "../../assets/images/user.png";
-import {NavLink} from "react-router-dom";
 import {UserType} from "../../Types/Types";
-import classnames from 'classnames'
 import User from "./User/User";
-
+import Paginator from "../common/Paginator/Paginator";
 
 type PropsType = {
     totalUsersCount: number
@@ -22,37 +18,22 @@ const Users: React.FC<PropsType> = ({
                                         totalUsersCount, pageSize,
                                         currentPage, onCurrentPageChanged,
                                         users, followingInProgress,
-                                        follow, unfollow
+                                        follow, unfollow, ...props
                                     }) => {
 
-    let pagesCount = Math.ceil(totalUsersCount / pageSize)
-
-    let pages: Array<number> = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
     return <div>
-        <div>
-            {pages.map(p => {
-                return <span className={classnames({
-                    [styles.selectedPage]: currentPage === p
-                })}
-                             onClick={() => {
-                                 onCurrentPageChanged(p)
-                             }}> {p} </span>
-            })}
 
-        </div>
-        {
-            users.map(u => {
-                return <User user={u}
-                             followingInProgress={followingInProgress}
-                             follow={follow}
-                             unfollow={unfollow}/>
-            })
-        }
+        <Paginator totalItemsCount={totalUsersCount}
+                   pageSize={pageSize}
+                   currentPage={currentPage}
+                   onPageChanged={onCurrentPageChanged}/>
+
+        {users.map(u => {
+            return <User user={u}
+                         followingInProgress={followingInProgress}
+                         follow={follow}
+                         unfollow={unfollow}/>
+        })}
     </div>
 }
-
 export default Users
