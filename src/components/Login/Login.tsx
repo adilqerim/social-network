@@ -24,7 +24,7 @@ export type LoginFormValuesType = {
 
 const Login: FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
 
-    const onSubmit = (formData: LoginFormValuesType) => {
+    const onLogin = (formData: LoginFormValuesType) => {
         let {email, password, rememberMe, captcha} = formData
         props.login(email, password, rememberMe, captcha)
     }
@@ -35,7 +35,7 @@ const Login: FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
 
     return <div>
         <h1>Login</h1>
-        <LoginForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
+        <LoginForm onSubmit={onLogin} captchaUrl={props.captchaUrl}/>
     </div>
 }
 

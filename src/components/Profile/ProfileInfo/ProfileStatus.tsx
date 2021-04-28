@@ -5,16 +5,10 @@ type PropsType = {
     updateStatus:(status: string) => void
 }
 
-type StateType = {
-    editMode: boolean
-    status: string
-}
+const ProfileStatus: React.FC<PropsType> = (props) => {
 
-
-const ProfileStatus: React.FC<PropsType & StateType> = (props) => {
-
-    const [status, setStatus] = useState<string>(props.status)
-    const [editMode, setEditMode] = useState<boolean>(false)
+    const [status, setStatus] = useState(props.status)
+    const [editMode, setEditMode] = useState(false)
 
     useEffect( () => {
         setStatus(props.status)

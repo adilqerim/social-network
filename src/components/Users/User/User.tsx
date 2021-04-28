@@ -12,37 +12,36 @@ type PropsType = {
 }
 
 const User: React.FC<PropsType> = ({ user, followingInProgress, follow, unfollow}) => {
-    const u = user
-    return <div key={u.id}>
+    return <div key={user.id}>
                 <span>
                     <div>
-                        <NavLink to={'/profile/' + u.id}>
-                            <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                        <NavLink to={'/profile/' + user.id}>
+                            <img src={user.photos.small != null ? user.photos.small : userPhoto}
                                  className={styles.userAvatar}/>
                         </NavLink>
                     </div>
                     <div>
-                        {u.followed
-                            ? <button disabled={followingInProgress.some(id => id === u.id)}
+                        {user.followed
+                            ? <button disabled={followingInProgress.some(id => id === user.id)}
                                       onClick={() => {
-                                          unfollow(u.id)
+                                          unfollow(user.id)
                                       }}>Unfollow</button>
 
-                            : <button disabled={followingInProgress.some(id => id === u.id)}
+                            : <button disabled={followingInProgress.some(id => id === user.id)}
                                       onClick={() => {
-                                          follow(u.id)
+                                          follow(user.id)
                                       }}>Follow</button>}
 
                     </div>
                 </span>
         <span>
                     <span>
-                        <div>{u.name}</div>
-                        <div>{u.status}</div>
+                        <div>{user.name}</div>
+                        <div>{user.status}</div>
                     </span>
                     <span>
-                        <div>{'u.location.country'}</div>
-                        <div>{'u.location.city'}</div>
+                        <div>{'user.location.country'}</div>
+                        <div>{'user.location.city'}</div>
                     </span>
                 </span>
     </div>

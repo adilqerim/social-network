@@ -16,12 +16,17 @@ type MapDispatchPropsType = {
 }
 type PropsType = MapStatePropsType & MapDispatchPropsType
 
+export type AddNewPostFormValuesType = {
+    newPostBody: string
+}
 const MyPosts: FC<PropsType> = ({ posts, addPost}) => {
 
-    const onAddPost = (values: any) => {
+    const onAddPost = (values: AddNewPostFormValuesType) => {
         const newPost = values.newPostBody
         addPost(newPost)
     }
+
+
 
     return (
         <div className={s.postsBlock}>
@@ -40,5 +45,5 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     posts: state.profilePage.posts
 })
 
-export default connect(mapStateToProps,
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps,
     {addPost: actions.addPost})(MyPosts);

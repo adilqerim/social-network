@@ -2,16 +2,18 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import React, {FC} from "react";
 import {createField, Textarea} from "../../common/FormsControls/FormsControls";
+import {NewMessageFormValuesType} from "../Dialogs";
 
-const maxLength100 = maxLengthCreator(100)
+type MessageFormValuesKeysType = Extract<keyof NewMessageFormValuesType, string>
+type PropsType = {}
 
-const AddMessageForm: FC<InjectedFormProps> = ({ handleSubmit }) => {
+const AddMessageForm: FC<InjectedFormProps<NewMessageFormValuesType, PropsType> & PropsType> = ({ handleSubmit }) => {
     return (
         <form onSubmit={handleSubmit}>
-            {createField('Enter your message', 'newMessageBody', [required, maxLength100], Textarea)}
+            {createField<MessageFormValuesKeysType>('Enter your message', 'newMessageBody', [required], Textarea)}
             <button>Send message</button>
         </form>
     )
 }
 
-export default reduxForm({form: 'dialogAddMessageForm'})(AddMessageForm)
+export default reduxForm<NewMessageFormValuesType>({form: 'dialogAddMessageForm'})(AddMessageForm)

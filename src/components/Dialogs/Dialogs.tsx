@@ -1,40 +1,38 @@
-import React from 'react'
+import React, {ComponentType} from 'react'
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {actions} from "../../redux/dialogsReducer";
+import {actions, InitialStateType} from "../../redux/dialogsReducer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import AddMessageForm from "./AddMessageForm/AddMessageForm";
 import {AppStateType} from "../../redux/reduxStore";
-import {DialogType, MessageType} from "../../Types/Types";
 
-type MapStatePropsType = {
-    dialogs: Array<DialogType>
-    messages: Array<MessageType>
-}
-
-type MapDispatchPropsType = {
+type PropsType = {
+    dialogsPage: InitialStateType
     sendMessage: (message: string) => void
 }
 
-type PropsType = MapStatePropsType & MapDispatchPropsType
+export type NewMessageFormValuesType = {
+    newMessageBody: string
+}
 
-const Dialogs: React.FC<PropsType> = ({ dialogs, messages, sendMessage}) => {
+const Dialogs: React.FC<PropsType> = ({ dialogsPage, sendMessage}) => {
 
-    const addNewMessage = (values: any ) => {
+
+    const addNewMessage = (values: NewMessageFormValuesType ) => {
         sendMessage(values.newMessageBody)
     }
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItems}>
-                {dialogs.map(d => <DialogItem id={d.id} key={d.id} name={d.name}/>)}
+                {dialogsPage.dialogs.map(d => <DialogItem id={d.id} key={d.id} name={d.name}/>)}
             </div>
 
             <div className={s.messages}>
-                {messages.map(m => <Message key={m.id} message={m.message}/>)}
+                {dialogsPage.messages.map(m => <Message key={m.id} message={m.message}/>)}
 
                 <AddMessageForm onSubmit={addNewMessage}/>
             </div>
@@ -42,16 +40,14 @@ const Dialogs: React.FC<PropsType> = ({ dialogs, messages, sendMessage}) => {
     )
 }
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
-        dialogs: state.dialogsPage.dialogs,
-        messages: state.dialogsPage.messages
-
+        dialogsPage: state.dialogsPage
     }
 }
 
-export default compose(
-    connect<MapStatePropsType, MapDispatchPropsType, null, AppStateType>(mapStateToProps,
+export default compose<ComponentType>(
+    connect(mapStateToProps,
         {
             sendMessage: actions.sendMessage
         }),
