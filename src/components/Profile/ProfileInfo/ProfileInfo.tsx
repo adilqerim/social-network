@@ -1,12 +1,23 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, ChangeEventHandler, FC, useState} from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from "../../common/Preloader/Preloader";
 import userPhoto from '../../../assets/images/user.png'
 import ProfileStatus from "./ProfileStatus";
 import ProfileDataForm from "./ProfileData/ProfileDataForm";
 import {ProfileData} from "./ProfileData/ProfileData";
+import {ProfileType} from "../../../Types/Types";
 
-const ProfileInfo = (props) => {
+
+type PropsType = {
+    profile: ProfileType
+    status: string
+    isOwner: boolean
+    savePhoto: (file: File) => void
+    saveProfile: (profileData: ProfileType) => Promise<any>
+    updateStatus: (status: string) => void
+}
+
+const ProfileInfo:FC<PropsType> = (props) => {
 
     const [editMode, setEditMode] = useState(false)
 
@@ -14,13 +25,14 @@ const ProfileInfo = (props) => {
         return <Preloader/>
     }
 
-    const onMainPhotoSelected = (event) => {
-        if (event.target.files.length) {
+    const onMainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files?.length) {
             props.savePhoto(event.target.files[0])
         }
     }
 
-    const onSubmit = (profileData) => {
+    const onSubmit = (profileData: ProfileType) => {
+        //TODO: remove then
         props.saveProfile(profileData).then(
             () => {
                 setEditMode(false)

@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {ComponentType, FC, useEffect} from 'react';
 import {connect} from "react-redux";
 import {getProfile, getStatus, savePhoto, saveProfile, updateStatus} from "../../redux/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -9,43 +9,44 @@ import {ProfileType} from "../../Types/Types";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPosts from "./MyPosts/MyPosts";
 
-type MapStatePropsType = {
-    profile: any
-    status: string
-    authorizedUserId: number | null
-    isAuth: boolean
-}
+type MapPropsType = ReturnType<typeof mapStateToProps>
 
 type MapDispatchPropsType = {
     getProfile: (userId: number) => void
     getStatus: (userId: number) => void
     updateStatus: (status: string) => void
-    savePhoto: (file: any) => void
-    saveProfile: (profile: ProfileType) => void
+    savePhoto: (file: File) => void
+    saveProfile: (profileData: ProfileType) => Promise<any>
 }
 
 type PathParamsType = {
-    userId: any
+    userId: string
 }
 
-type PropsType = MapStatePropsType & MapDispatchPropsType & RouteComponentProps<PathParamsType>
+type PropsType = MapPropsType & MapDispatchPropsType & RouteComponentProps<PathParamsType>
 
 const Profile: FC<PropsType> = (props) => {
-
+    let userId: number | null = +props.match.params.userId
     useEffect(() => {
-        let userId = props.match.params.userId
         if (!userId) {
             userId = props.authorizedUserId;
             if (!userId) {
+                //todo: replace push with redirect
                 props.history.push('/login')
             }
         }
-        props.getProfile(userId)
-        props.getStatus(userId)
-    }, [])
+
+        if (!userId) {
+            console.error('ID should exists in URI params or in state "authorizedUserId"')
+        } else {
+            props.getProfile(userId)
+            props.getStatus(userId)
+        }
+
+    }, [userId])
 
     return <div>
-        <ProfileInfo profile={props.profile}
+        <ProfileInfo profile={props.profile as ProfileType}
                      status={props.status}
                      updateStatus={props.updateStatus}
                      isOwner={!props.match.params.userId}
@@ -56,7 +57,7 @@ const Profile: FC<PropsType> = (props) => {
 }
 
 
-const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+const mapStateToProps = (state: AppStateType) => {
     return ({
         profile: state.profilePage.profile,
         status: state.profilePage.status,
@@ -65,7 +66,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     })
 }
 
-export default compose(
+export default compose<ComponentType>(
     connect(mapStateToProps,
         {
             getProfile,

@@ -16,23 +16,23 @@ const initialState = {
 const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
 
     switch (action.type) {
-        case "ADD_POST":
+        case "SN/PROFILE/ADD_POST":
             const newPost = {id: 5, text: action.newPostBody, likesCount: 0}
             return {
                 ...state,
                 posts: [...state.posts, newPost],
             }
-        case 'SET_USER_PROFILE':
+        case "SN/PROFILE/SET_USER_PROFILE":
             return {
                 ...state,
                 profile: action.profile
             }
-        case 'SET_STATUS':
+        case "SN/PROFILE/SET_STATUS":
             return {
                 ...state,
                 status: action.status
             }
-        case 'SAVE_PHOTO_SUCCESS':
+        case "SN/PROFILE/SAVE_PHOTO_SUCCESS":
             return {
                 ...state,
                 profile: {...state.profile, photos: action.photos} as ProfileType
@@ -44,10 +44,10 @@ const profileReducer = (state = initialState, action: ActionsType): InitialState
 }
 
 export const actions = {
-    addPost: (newPostBody: string) => ({type: 'ADD_POST', newPostBody} as const),
-    setUserProfile: (profile: ProfileType) => ({type: 'SET_USER_PROFILE', profile} as const),
-    setStatus: (status: string) => ({type: 'SET_STATUS', status} as const),
-    savePhotoSuccess: (photos: PhotosType) => ({type: 'SAVE_PHOTO_SUCCESS', photos} as const)
+    addPost: (newPostBody: string) => ({type: 'SN/PROFILE/ADD_POST', newPostBody} as const),
+    setUserProfile: (profile: ProfileType) => ({type: 'SN/PROFILE/SET_USER_PROFILE', profile} as const),
+    setStatus: (status: string) => ({type: 'SN/PROFILE/SET_STATUS', status} as const),
+    savePhotoSuccess: (photos: PhotosType) => ({type: 'SN/PROFILE/SAVE_PHOTO_SUCCESS', photos} as const)
 }
 
 export const getProfile = (userId: number): ThunkType =>

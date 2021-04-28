@@ -5,10 +5,11 @@ import {ProfileType} from "../../../../Types/Types";
 type ProfileDataType = {
     profile: ProfileType
     isOwner: boolean
-    goToEditMode: MouseEventHandler<HTMLButtonElement>
+    goToEditMode: () => void
+    // goToEditMode: MouseEventHandler<HTMLButtonElement>
 }
 
-export const ProfileData: FC<ProfileDataType> = ({ profile, isOwner, goToEditMode }) => {
+export const ProfileData: FC<ProfileDataType> = ({profile, isOwner, goToEditMode}) => {
     return (<div>
             {isOwner && <button onClick={goToEditMode}>Edit</button>}
             <div>
@@ -26,7 +27,7 @@ export const ProfileData: FC<ProfileDataType> = ({ profile, isOwner, goToEditMod
             <div>
                 <b>Contacts: </b> {Object.keys(profile.contacts).map(key => {
                 if (profile.contacts[key]) {
-                return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+                    return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
                 }
             })}
             </div>
@@ -34,12 +35,12 @@ export const ProfileData: FC<ProfileDataType> = ({ profile, isOwner, goToEditMod
     )
 }
 
-type ContactType = {
-    contactTitle: any
-    contactValue: any
+type ContactPropsType = {
+    contactTitle: string
+    contactValue: string
 }
 
-const Contact: FC<ContactType> = ({contactTitle, contactValue}) => {
+const Contact: FC<ContactPropsType> = ({contactTitle, contactValue}) => {
     return <div className={s.contact}>
         <b> {contactTitle}: </b> {contactValue}
     </div>
