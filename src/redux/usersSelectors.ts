@@ -28,9 +28,9 @@ export const getFollowingInProgress = (state: AppStateType) => {
     return state.usersPage.followingInProgress
 }
 
-export const countSmthDifficult = (state: AppStateType) => {
-    //for.... math.... big arrays. filters
-    const count = 42
-    return count
+export const getUsersFilter = (state: AppStateType) => {
+    return state.usersPage.filter
 }
+
+
 
