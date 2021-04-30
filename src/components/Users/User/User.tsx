@@ -3,15 +3,27 @@ import userPhoto from "../../../assets/images/user.png";
 import styles from "../Users.module.css";
 import React from "react";
 import {UserType} from "../../../Types/Types";
+import {useDispatch, useSelector} from "react-redux";
+import {getFollowingInProgress} from "../../../redux/usersSelectors";
+import {follow, unfollow} from "../../../redux/usersReducer";
 
 type PropsType = {
     user: UserType
-    followingInProgress: Array<number>
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
 }
 
-const User: React.FC<PropsType> = ({ user, followingInProgress, follow, unfollow}) => {
+const User: React.FC<PropsType> = ({ user}) => {
+
+    const followingInProgress = useSelector(getFollowingInProgress)
+
+    const dispatch = useDispatch()
+
+    const followUser = (userId: number) => {
+        dispatch(follow(userId));
+    }
+    const unfollowUser = (userId: number) => {
+        dispatch(unfollow(userId))
+    }
+
     return <div key={user.id}>
                 <span>
                     <div>
@@ -24,12 +36,12 @@ const User: React.FC<PropsType> = ({ user, followingInProgress, follow, unfollow
                         {user.followed
                             ? <button disabled={followingInProgress.some(id => id === user.id)}
                                       onClick={() => {
-                                          unfollow(user.id)
+                                          unfollowUser(user.id)
                                       }}>Unfollow</button>
 
                             : <button disabled={followingInProgress.some(id => id === user.id)}
                                       onClick={() => {
-                                          follow(user.id)
+                                          followUser(user.id)
                                       }}>Follow</button>}
 
                     </div>

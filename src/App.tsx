@@ -11,11 +11,11 @@ import Preloader from "./components/common/Preloader/Preloader";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import store, {AppStateType} from "./redux/reduxStore";
+import {UsersPage} from "./components/Users/UsersPage";
+import {Login} from "./components/Login/Login";
 //LAZY LOADING
 const Profile = React.lazy(() => import("./components/Profile/Profile"));
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs'));
-const Login = React.lazy(() => import('./components/Login/Login'));
 
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -45,7 +45,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                             <Redirect exact from="/" to="/profile"/>
                             <Route path='/profile/:userId?' render={() => <Profile/>}/>
                             <Route path='/dialogs' render={() => <Dialogs/>}/>
-                            <Route path='/users' render={() => <UsersContainer pageTitle={'Samurai'}/>}/>
+                            <Route path='/users' render={() => <UsersPage pageTitle={'Samurai'}/>}/>
                             <Route path='/news' component={News}/>
                             <Route path='/music' component={Music}/>
                             <Route path='/settings' component={Settings}/>

@@ -1,29 +1,39 @@
-import React from 'react'
-import {UserType} from "../../Types/Types";
+import React, {useEffect} from 'react'
 import User from "./User/User";
 import Paginator from "../common/Paginator/Paginator";
 import {UsersSearchForm} from "./User/UsersSearchForm";
-import {FilterType} from "../../redux/usersReducer";
+import {FilterType, getUsers} from "../../redux/usersReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    getCurrentPage,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersFilter,
+    getUsersReselector
+} from "../../redux/usersSelectors";
 
-type PropsType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    onCurrentPageChanged: (page: number) => void
-    onFilterChanged: (filter: FilterType) => void
-    users: Array<UserType>
-    followingInProgress: Array<number>
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
+export const Users: React.FC = () => {
 
-}
+    const users = useSelector(getUsersReselector)
+    const totalUsersCount = useSelector(getTotalUsersCount)
+    const currentPage = useSelector(getCurrentPage)
+    const pageSize = useSelector(getPageSize)
+    const filter = useSelector(getUsersFilter)
 
-const Users: React.FC<PropsType> = ({
-                                        totalUsersCount, pageSize,
-                                        currentPage, onCurrentPageChanged,
-                                        users, followingInProgress, onFilterChanged,
-                                        follow, unfollow, ...props
-                                    }) => {
+    const dispatch = useDispatch()
+
+    useEffect( () => {
+        dispatch(getUsers(currentPage, pageSize, filter))
+    }, [])
+
+    const onCurrentPageChanged = (pageNumber: number) => {
+        dispatch(getUsers(pageNumber, pageSize, filter))
+    }
+
+    const onFilterChanged = (filter: FilterType) => {
+        dispatch(getUsers(1, pageSize, filter))
+    }
+
 
     return <div>
 
@@ -34,14 +44,9 @@ const Users: React.FC<PropsType> = ({
 
         <UsersSearchForm onFilterChanged={onFilterChanged}/>
 
-        {users.map(u => {
-            return <User user={u}
-                         followingInProgress={followingInProgress}
-                         follow={follow}
-                         unfollow={unfollow}/>
+        {users.map(user => {
+            return <User user={user}/>
         })}
     </div>
 }
 
-
-export default Users
