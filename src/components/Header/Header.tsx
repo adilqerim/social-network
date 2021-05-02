@@ -19,7 +19,7 @@ type PropsType = MapStatePropsType & MapDispatchPropsType
 
 const Header: FC<PropsType> = ({ userName,  isAuth, logout}) => {
     return <header className={s.header}>
-        <img src='https://i.pinimg.com/originals/20/60/2d/20602d43cc993811e5a6bd1886af4f33.png' />
+        {/*<img src='https://i.pinimg.com/originals/20/60/2d/20602d43cc993811e5a6bd1886af4f33.png' />*/}
 
         <div className={s.loginBlock}>
             {isAuth

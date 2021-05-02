@@ -10,11 +10,11 @@ type FormControlPropsType = {
 const FormControl: FC<FormControlPropsType> = ({meta: {touched, error}, children}) => {
     const hasError = touched && error
     return (
-        <div className={styles.formControl + '' + hasError ? styles.error : ''}>
+        <div className={styles.formControl + " " + (hasError ? styles.error : "")}>
             <div>
                 {children}
             </div>
-            { hasError && <span>{ error }</span>}
+            {hasError && <span>{error}</span>}
         </div>
     )
 

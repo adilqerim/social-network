@@ -1,7 +1,6 @@
 .dialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
-    color:white;
 }
 
 .dialogItems  {
@@ -17,7 +16,6 @@
 }
 
 .dialogItem a {
-    color: white;
     text-decoration: none;
 }
 
